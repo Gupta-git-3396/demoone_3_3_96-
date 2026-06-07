@@ -13,7 +13,7 @@ export class AdminPage extends BasePage{
     }
 
     //Method
-    async clickAdminText(): Promise<void>{
+    async clickAdminMenu(): Promise<void>{
        await this.click(this.adminMenu);
     }       
 
