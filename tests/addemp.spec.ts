@@ -2,6 +2,7 @@ import{test, expect} from '@playwright/test';
 import { BasePage } from '../pages/BasePage';
 import { LoginPage } from '../pages/LoginPage';
 import { PimPage } from '../pages/PIMPage';
+import logindata from '../test-data/logindata.json'
 
 test('add new employee', async({page})=>{
 
@@ -10,7 +11,10 @@ test('add new employee', async({page})=>{
     const loginPage= new LoginPage(page);
     const clickPim = new PimPage(page);
 
-    await loginPage.login('Admin', 'admin123');
+    await loginPage.login(
+        logindata.validUser.username,
+        logindata.validUser.password
+    );
     await clickPim.clickPimMenu();
     await clickPim.clickAddBtn();
 
