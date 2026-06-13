@@ -1,4 +1,4 @@
-import {Page, Locator} from '@playwright/test';
+import {Page, Locator, expect} from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class PimPage extends BasePage{
@@ -8,22 +8,27 @@ export class PimPage extends BasePage{
     private readonly firstName: Locator;
     private readonly midName: Locator;
     private readonly lastName: Locator;
+    private readonly empId: Locator;
     private readonly loginToggle: Locator;
     private readonly userName: Locator;
     private readonly password: Locator;
     private readonly cnfPassword: Locator;
     private readonly btnSubmit: Locator;
-
-   
+    private readonly txtPim: Locator;
 
     //Constructor
     constructor(page: Page){
     super(page)
     this.clickPim = page.getByText('PIM');
+    this.txtPim = page.locator('h6');
     this.clickAdd = page.locator('button:has-text("Add")');
     this.firstName = page.getByPlaceholder("First Name");    
     this.midName = page.getByPlaceholder("Middle Name");
     this.lastName = page.getByPlaceholder("Last Name");
+    //this.empId = page.getByLabel("Employee Id");
+    this.empId = page.locator('//label[text()="Employee Id"]/ancestor::div[contains(@class,"oxd-input-group")]//input'
+);
+    
     //this.loginToggle = page.getByText("Create Login Details");
     
     this.loginToggle = page.locator('.oxd-switch-input');
@@ -44,14 +49,22 @@ export class PimPage extends BasePage{
     }
 
     //Methods
-    async clickPimMenu(): Promise<void>{
+    //click to pim menu
+    async mClickPimMenu(): Promise<void>{
        await this.click(this.clickPim);
     }
 
-    async clickAddBtn(): Promise<void>{
+    // verify pim page open
+    async mVerifyPimText():Promise<void>{
+        await expect(this.txtPim).toHaveText('PIM');
+    }
+
+    //click to add button
+    async mClickAddBtn(): Promise<void>{
         await this.click(this.clickAdd);
     }
 
+    //add user details
     async enterFirstName(fname:string): Promise<void>{
         await this.fill(this.firstName, fname);
     }
@@ -64,10 +77,15 @@ export class PimPage extends BasePage{
         await this.fill(this.lastName, lname);
     }
 
+    async enterEmpId(eid:string):Promise<void>{
+        await this.fill(this.empId, eid);
+    }
+
     // async clickLoginTab() : Promise<void>{
     //     await this.click(this.loginToggle);
     // }
 
+    //click on the login toggel button
     async clickLoginTab(): Promise<void> {
     await this.loginToggle.click();
     }
@@ -88,11 +106,12 @@ export class PimPage extends BasePage{
         await this.click(this.btnSubmit);
     }
 
-
-    async addNewEmp(fname:string, mname:string, lname:string, uname:string, pass:string, cpass:string): Promise<void>{
+    //add user details method
+    async mAddNewEmp(fname:string, mname:string, lname:string, eid:string, uname:string, pass:string, cpass:string): Promise<void>{
         await this.enterFirstName(fname);
         await this.enterMidname(mname);
         await this.enterLastname(lname);
+        await this.enterEmpId(eid);
         await this.clickLoginTab();
         await this.enterUsername(uname);
         await this.enterPass(pass);

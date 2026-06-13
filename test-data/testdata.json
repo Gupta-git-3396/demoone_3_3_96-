@@ -1,0 +1,14 @@
+{
+  "validUser": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+  "employee": {
+    "fname": "Raj1",
+    "mname": "Kumar",
+    "lname": "Gupta",
+    "eid": "111",
+    "username": "Raj002",
+    "password": "Pass@1234"
+  }
+}

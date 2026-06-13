@@ -1,4 +1,4 @@
-import{Page, Locator} from '@playwright/test';
+import{Page, Locator, expect} from '@playwright/test';
 import{ BasePage} from './BasePage';
 
 
@@ -10,6 +10,7 @@ export class LoginPage extends BasePage{
     private readonly txtUserName: Locator;
     private readonly txtPassword: Locator;
     private readonly btnLogin: Locator;
+    private readonly loginPageTxt: Locator;
 
     //constructor
     constructor(page:Page){
@@ -18,6 +19,7 @@ export class LoginPage extends BasePage{
         this.txtUserName = page.locator('input[name="username"]');
         this.txtPassword = page.locator('input[name="password"]');
         this.btnLogin = page.locator("button[type='submit']");
+        this.loginPageTxt= page.locator('h6');
     }
 
     //method
@@ -34,11 +36,15 @@ export class LoginPage extends BasePage{
         await this.click(this.btnLogin);
     }
 
-    async login(username: string, password: string): Promise<void> {
+    async mUserLogin(username: string, password: string): Promise<void> {
 
         await this.enterUserName(username);
         await this.enterPassword(password);
         await this.clickLogin();
     }
+
+    // async mVerifyLoginPageTxt(): Promise<void>{
+    //     await expect(this.loginPageTxt).toHaveText('Dashboard');
+    // }
 
 }

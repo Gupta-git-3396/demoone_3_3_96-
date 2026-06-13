@@ -1,6 +1,14 @@
-import {test, expect} from '@playwright/test';
+import { test, expect } from '../fixtures/baseFixture'
+
+test('click to PIM menu ', async({fPimPage}) =>{
+    await fPimPage.mClickPimMenu();
+    await fPimPage.mVerifyPimText();
+    await fPimPage.mClickAddBtn();
+})
+
+
+/*import {test, expect} from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
-//import { AdminPage } from '../pages/AdminPage';
 import { PimPage } from '../pages/PIMPage';
 
 test('Click the PIM menu', async({page})=>
@@ -21,7 +29,6 @@ test('Click the PIM menu', async({page})=>
 
     await clickPimText.clickAddBtn();
     await expect(page.locator('h6').getByText('Add Employee')).toBeVisible();   
-
-    
-  
 })
+    
+*/

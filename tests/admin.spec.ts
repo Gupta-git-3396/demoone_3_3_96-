@@ -1,4 +1,13 @@
-import {test, expect} from '@playwright/test';
+import {test, expect} from '../fixtures/baseFixture';
+
+test('click to admin Menu', async({fAdminPage}) =>{
+
+    await fAdminPage.mClickAdminMenu();
+    await fAdminPage.mVerifySystemUsersTest();
+
+})
+
+/*import {test, expect} from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { AdminPage } from '../pages/AdminPage';
 
@@ -15,3 +24,5 @@ test("Click the Admin Menu", async({page})=>{
     await expect(page.locator('h5')).toHaveText('System Users'); 
 
 })
+    
+*/
